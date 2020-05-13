@@ -1,0 +1,82 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+.label {
+    float: left;
+    margin: 6px 10px;
+    color:#000;
+    font-size:14px
+}
+
+.search{
+    display:inline-block;
+    margin-left:10px
+}
+
+.form{
+    margin:0px;
+    padding:0px;
+}
+
+.row .cart {
+    position: relative;
+    margin: 15px 0px;
+    font-size: 30px;
+    color: #009102;
+}
+.card a {
+    text-decoration: none;
+    color: #009102;
+}
+
+.card a:hover, .card a:active {
+    text-decoration: none;
+}
+
+.row .cart .cartModel {
+    position: absolute;
+    display: none;
+    top: 51px;
+    right: -89px;
+    padding: 20px 0px 0px 20px;
+    width: 500px;
+    height: 400px;
+    background-color: #222;
+    color: #eee;
+    border-top: 1px solid #ccc;
+    z-index: 999;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+
+.row .cart .cartModel.cartItem{
+    background:#eee;
+    border:1px solid #ccc;
+    color:#222;
+    padding:10px;
+    margin:10px;
+}
+

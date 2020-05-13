@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Emarket.Models.Product>
+}
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int counter = 0;
+}
+
+    <head>
+        <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="~/Content/Site.css" rel="stylesheet" />
+        <style>
+            .form {
+                margin-top: 40px;
+                margin-bottom: 20px;
+            }
+        </style>
+        <script src="~/Scripts/jquery-3.4.1.js"></script>
+        <script>
+        $(function () {
+            $("#txtsearch").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url:@Url.Action("GetCategoryName", "Product"),
+                        dataType: "json",
+                        data: { term: $("#txtsearch").val() },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return item;
+                            }))
+                        },
+                    });
+                },
+                minLength: 1
+            });
+        });
+        </script>
+    </head>
+
+
+<div>
+    <div class="row">
+
+        @using (@Html.BeginForm("Index", "Product", FormMethod.Post, new { @class = "col-md-8" }))
+        {
+            <div class="input-group" style="width: 600px;margin:20px 0px;">
+                <label class="label">Search Of Product</label>
+                @Html.TextBox("searchTerm", null, new { @class = "form-control", id = "txtsearch" })
+                <input type="submit" value="Search" class="search btn btn-primary" />
+            </div>
+        }
+
+        <div class="col-md-4 cart">
+        <a href="#" class="cartLink"><i class="fa fa-cart-plus"></i>Cart</a>
+        <div class="cartModel">
+            @foreach (var value in Model)
+            {
+                <div class="row">
+                    <div class="col-xs-12 cartItem" style="background-color:#eee;border:1px solid #ccc;color:#222;padding:10px;margin:10px;width:450px;font-size:16px">
+                        <div>
+                            <span>@Html.DisplayFor(modelitem => value.Cart.Product.ProductName) - </span>
+                            <span>@Html.DisplayFor(modelitem => value.Cart.Product.ProductPrice)</span>
+                            <p>@Html.DisplayFor(modelitem => value.Cart.added_at)</p>
+                            <span>@Html.ActionLink("Remove", "Delete", "Cards", new { id = value.ProductId })</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="products">
+    <h2>Products</h2>
+    @Html.ActionLink("Add Product", "Create", "Product")
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                if (counter != 0 && counter % 6 == 0)
+                {
+                @:</div>
+                @:<div class="row">
+                }
+
+                      <div class="col-xs-6 col-sm-4 col-lg-2">
+                          <img src="~/Upload/@Html.DisplayFor(modelitem => item.ProductImage)" alt="image" />
+                          <h3>@Html.DisplayFor(modelitem => item.ProductName)</h3>
+                          <h4>@Html.DisplayFor(modelitem => item.Category.CategoryName)</h4>
+                          <h5>Price: @Html.DisplayFor(modelitem => item.ProductPrice)</h5>
+                          <spna>@Html.ActionLink("Read More..", "Details", new { id = item.ProductId })</spna>
+                          <hr />
+                          <span>@Html.ActionLink("Add To Cart", "Create", "Carts", new { id = item.ProductId})</span>
+                      </div>
+
+                counter++;
+            }
+        </div>
+
+    </div>
+
+</div>
+
+<script src="~/Scripts/plugins.js"></script>
